@@ -1,0 +1,21 @@
+.stockItem{
+    display: inline-block;
+    justify-content: center;
+    text-align: center;
+}
+.stockItem:hover{
+    cursor: pointer;
+}
+
+.stock-details{
+    margin-top: 3.5em;
+}
+.stock_detail_card h1{
+    text-align: center;
+}
+.stock_detail_card p{
+    text-align: center;
+}
+.stockList{
+    display: block;
+}

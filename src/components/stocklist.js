@@ -1,41 +1,17 @@
 import React, {useEffect, useState} from 'react';
+import StockItem from './stockitem';
 
 const StockList = (props)=>{
     const [items, setItems] = useState([]);
-    // useEffect(()=>{
-    //     console.log("value CHANGEd to: ");
-    //     console.log(props);
-    //     if(props){
-    //         setItems(props.Stonks);  
 
-    //         console.log(items);
-    //     }    
-    // }, [props])
-//    let itemsToRender; 
-//    if(items.length){
-//        itemsToRender = items.map(item =>{
-//            return(
-//                 <div>
-//                     <h2>{item.symbol}</h2>
-//                     <p>Close: {item.close}</p>
-//                 </div>
-//            )
-//        })
-//    }else{
-//        console.log("there are no items");
-//        itemsToRender="loading...";
-//        //itemsToRender="Loading.."
-//    }
     const itemsToRender= props.Stonks.map(item =>{
         return(
-            <div key={item.symbol}>
-                <h2>{item.symbol}</h2>
-                <p>Close: {item.close}</p>
-            </div>
+            <StockItem stockData={item} onStockSelect={props.onStockSelect}/>
         )
     })
    return(
-        <div className="STONKLIST">
+        <div className="list-group">
+            <h1><center>Stock List</center></h1>
             {itemsToRender}
         </div>);
 }
