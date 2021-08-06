@@ -12,10 +12,25 @@
 }
 .stock_detail_card h1{
     text-align: center;
+    display: flex;
+    justify-content: center;
 }
 .stock_detail_card p{
     text-align: center;
 }
 .stockList{
     display: block;
+}
+.stock_info{
+    font-weight: bold;
+    font-size: 2em;
+}
+.site_title{
+    text-align: center;
+    top: 5em;
+    padding-top: 1.5em;
+
+}
+body{
+    background-color: blanchedalmond;
 }

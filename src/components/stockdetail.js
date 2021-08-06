@@ -5,27 +5,28 @@ import LineGraph from './graph';
 
 const StockDetail=({stock, details, graphData})=>{
     
-    console.log(details);
+    console.log(stock, details);
     return(
         <div className="ui segment stock_detail_card">
             <h1>{details.Name}</h1>
             <p>{details.Symbol}</p>
             <LineGraph graphData={graphData}/>
-            <div className="ui middle aligned divided list">
+
+            <div className="ui middle aligned divided list stock_info">
                 <div className="item">
-                    <div className="ui right floated content">{stock.last}</div>
+                    <div className="ui right floated content">${stock.last}</div>
                     <div className="content">LastPrice: </div>
                 </div>
                 <div className="item">
-                    <div className="ui right floated content">{stock.open}</div>
+                    <div className="ui right floated content">${stock.open}</div>
                     <div className="content">Open: </div>
                 </div>
                 <div className="item">
-                    <div className="ui right floated content">{stock.low}</div>
+                    <div className="ui right floated content">${stock.low}</div>
                     <div className="content">Daily Low: </div>
                 </div>
                 <div className="item">
-                    <div className="ui right floated content">{stock.high}</div>
+                    <div className="ui right floated content">${stock.high}</div>
                     <div className="content">Daily High: </div>
                 </div>
                 <div className="item">
@@ -33,7 +34,7 @@ const StockDetail=({stock, details, graphData})=>{
                     <div className="content">Volume: </div>
                 </div>
                 <div className="item">
-                    <div className="ui right floated content">{details["52WeekHigh"]}</div>
+                    <div className="ui right floated content">${details["52WeekHigh"]}</div>
                     <div className="content">52 Week High: </div>
                 </div>
                 <div className="item">

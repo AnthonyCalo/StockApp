@@ -3,7 +3,7 @@ import axios from 'axios';
 export default axios.create({
     baseURL: 'http://api.marketstack.com/v1/',
     params: {
-        access_key: '93b63d59bca8ab7741d814c721bf0b3b'
+        access_key: 'c2119850fee432aed35180c116717945'
     }
 })
 

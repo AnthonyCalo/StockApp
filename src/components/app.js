@@ -4,17 +4,20 @@ import marketStack from '../apis/marketStack';
 import StockList from './stocklist';
 import StonkList2 from './stockList2';
 import alphavantage from '../apis/alphavantage';
+import SearchBar from './SeachBar';
 
 const App = ()=>{
     //useStateHooks______________________________________________________
-    const [stonkResults, setStonks] = useState([]);
-    const [selectedStock, setSelectedStock] = useState([]);
+    const [stonkResults, setStonks] = useState([]); //info for stockList
+    const [selectedStock, setSelectedStock] = useState([]); 
     const [selectedDetails, setSelectedDetails]=useState([]);
     const [graphData, setGraphData] = useState([]);
+    const [search, setSearch] = useState('');
+    const [suggs, setSuggs]= useState([]);
+    const [stocks, setStocks] = useState(["SPY","V","MSFT","FB","AMD","ED","MKTX","NKE","SPLK","QCOM"]);
+
     //StockList__________________________________________________________________
-    var stocks = ["SPY","V","MSFT","FB","AMD","ED","MKTX","NKE","SPLK","QCOM"];
     const stonks = stocks.join();
-    console.log(stonks);
     //API CALLS________________________________________________________________________________________________________
     const getStonks = async()=>{
         //get all stock list latest price/ basic info
@@ -23,6 +26,14 @@ const App = ()=>{
             params: { symbols: `${stonks}`}
         });
         setStonks(response.data.data);
+    }
+    const searchBarCall=async(term)=>{
+        const response= await alphavantage.get(``,{
+            params: {
+                function: 'SYMBOL_SEARCH',
+                keywords: term           }
+        });
+        setSuggs(response.data.bestMatches);
     }
     const getStockInfo=async()=>{
         const response= await alphavantage.get(``,{
@@ -49,6 +60,8 @@ const App = ()=>{
                 date_to:date
             }   
         });
+        console.log('graph')
+        console.log(response.data);
         setGraphData(response.data.data);
 
     }
@@ -56,22 +69,48 @@ const App = ()=>{
     useEffect(()=>{
         
         getStonks();
-    }, [])
+        //console.log("stocks:");
+        //console.log(stocks);
+    }, [stocks])
     //get individual stock greater details.
     //called every time a stock is selected
     useEffect(()=>{
         if(selectedStock){
             getStockInfo();
             getGraphInfo();
+        }else{
+            console.log("NO stonk selected");
         }
     }, [selectedStock])
-
+    useEffect(()=>{
+        if(search){
+            const timer = setTimeout(()=>{
+                searchBarCall(search);
+            }, 500)
+            return ()=>{
+                clearTimeout(timer);
+            }
+        }else{
+            console.log(" no search");
+        }
+    }, [search])
+    //other functions_______________________________________________________________________________________
     const selectStock=(stock)=>{
         setSelectedStock(stock);
     }
+    const handleChange =(term)=>{
+        setSearch(term);
+    }
+    const searchSelect=(ticker)=>{
+        //console.log("ticker: ");
+        //console.log(ticker);
+        setStocks([...stocks, ticker]);
+        //console.log(stocks);
+    }
+    //Return/render__________________________________________________________________________________________________
     return(
         <div className='container'>
-        <h1 className="site_title">Stonks</h1>
+        <SearchBar suggs={suggs} onInputChange={handleChange} clickSugg={searchSelect} />
         <div className="row">
             <div className="col-md-8 stock-details">
                 <StockDetail stock={selectedStock} details={selectedDetails} graphData={graphData}/>
