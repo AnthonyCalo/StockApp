@@ -107,6 +107,11 @@ const App = ()=>{
         setStocks([...stocks, ticker]);
         //console.log(stocks);
     }
+    const removeStock=(symbol)=>{
+        const newStonks = stocks.filter(stock=>stock!==symbol);
+        console.log(newStonks);
+        setStocks(newStonks);
+    }
     //Return/render__________________________________________________________________________________________________
     return(
         <div className='container'>
@@ -116,7 +121,7 @@ const App = ()=>{
                 <StockDetail stock={selectedStock} details={selectedDetails} graphData={graphData}/>
             </div>
             <div className="col-md-4 " >
-                <StockList Stonks={stonkResults} onStockSelect={selectStock}/>
+                <StockList Stonks={stonkResults} onStockSelect={selectStock} removeStock={removeStock}/>
             </div>
         </div>
     </div>

@@ -6,7 +6,7 @@ const StockList = (props)=>{
 
     const itemsToRender= props.Stonks.map(item =>{
         return(
-            <StockItem stockData={item} onStockSelect={props.onStockSelect}/>
+            <StockItem stockData={item} onStockSelect={props.onStockSelect} removeStock={props.removeStock}/>
         )
     })
    return(
