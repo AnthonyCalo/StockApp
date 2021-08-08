@@ -46,6 +46,10 @@ const StockDetail=({stock, details, graphData})=>{
                     <div className="content">52 Week High: </div>
                 </div>
                 <div className="item">
+                    <div className="ui right floated content">${details["52WeekLow"]}</div>
+                    <div className="content">52 Week Low: </div>
+                </div>
+                <div className="item">
                     <div className="ui right floated content">{details["EPS"]}</div>
                     <div className="content">EPS: </div>
                 </div>
