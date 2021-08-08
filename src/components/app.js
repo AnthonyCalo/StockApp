@@ -114,8 +114,12 @@ const App = ()=>{
     }
     //Return/render__________________________________________________________________________________________________
     return(
+        <div>
+        <div className="ui segment sticky top">
+            <h3 className="site_title">Calo Stock</h3>
+            <SearchBar suggs={suggs} onInputChange={handleChange} clickSugg={searchSelect} />
+        </div>
         <div className='container'>
-        <SearchBar suggs={suggs} onInputChange={handleChange} clickSugg={searchSelect} />
         <div className="row">
             <div className="col-md-8 stock-details">
                 <StockDetail stock={selectedStock} details={selectedDetails} graphData={graphData}/>
@@ -124,7 +128,8 @@ const App = ()=>{
                 <StockList Stonks={stonkResults} onStockSelect={selectStock} removeStock={removeStock}/>
             </div>
         </div>
-    </div>
+        </div>
+        </div>
         )
 }
 

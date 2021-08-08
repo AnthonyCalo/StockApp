@@ -25,11 +25,20 @@
     font-weight: bold;
     font-size: 2em;
 }
-.site_title{
-    text-align: center;
-    top: 5em;
-    padding-top: 1.5em;
 
+.top{
+    width: 100%;
+    height: 5em;
+    padding: 0em;
+}
+.ui.segment.top{
+    padding: 0;
+    display: flex;
+    background-color:burlywood;
+}
+.site_title{
+    padding-top: 0.8em;
+    margin-left: 02.5em;
 }
 body{
     background-color: blanchedalmond;

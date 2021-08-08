@@ -1,11 +1,19 @@
 import React from 'react';
 import marketStack from '../apis/marketStack';
 import LineGraph from './graph';
+import Accordion from './Accordion';
 
 
 const StockDetail=({stock, details, graphData})=>{
     
     console.log(stock, details);
+    const items=
+        [
+            {
+                title: "See company details",
+                content: details.Description
+            }
+        ]
     return(
         <div className="ui segment stock_detail_card">
             <h1>{details.Name}</h1>
@@ -38,12 +46,19 @@ const StockDetail=({stock, details, graphData})=>{
                     <div className="content">52 Week High: </div>
                 </div>
                 <div className="item">
+                    <div className="ui right floated content">{details["EPS"]}</div>
+                    <div className="content">EPS: </div>
+                </div>
+                <div className="item">
                     <div className="ui right floated content">{details["PERatio"]}</div>
                     <div className="content">PE ratio: </div>
                 </div>
                 <div className="item">
                     <div className="ui right floated content">{details["DividendYield"]}</div>
                     <div className="content">Dividend Yield: </div>
+                </div>
+                <div className="item">
+                   <Accordion items={ items } />
                 </div>
 
             </div>
