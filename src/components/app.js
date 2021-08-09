@@ -99,12 +99,13 @@ const App = ()=>{
         setSelectedStock(stock);
     }
     const handleChange =(term)=>{
+        console.log(term);
         setSearch(term);
     }
     const searchSelect=(ticker)=>{
         //console.log("ticker: ");
         //console.log(ticker);
-        setStocks([...stocks, ticker]);
+        setStocks([ticker,...stocks]);
         //console.log(stocks);
     }
     const removeStock=(symbol)=>{

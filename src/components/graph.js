@@ -4,7 +4,6 @@ import './graph.css';
 
 
 const LineGraph = ({graphData}) =>{
-    console.log("Graph:");
     var closes = [];
     var dates = [];
     var high = [];
@@ -15,8 +14,6 @@ const LineGraph = ({graphData}) =>{
         high.push(dataPoint.high);
         lows.push(dataPoint.low);
     })
-    console.log(closes);
-    console.log(dates);
     var options = {
         legend:{
             position: "bottom",

@@ -14,14 +14,15 @@ export default class SearchBar extends React.Component{
     //called every time text is typed  
     changeHandler=(event)=>{
         this.setState({term: event.target.value})
-        if(this.state.term.length>1){
+        if(event.target.value.length>0){
             this.setState({open: true});
         }else{
             console.log("here closed");
             this.setState({open: false});
         }
-        //sends back the term to app.js so it can make an api call
-        this.props.onInputChange(this.state.term);
+        //sends back the event.target.value to app.js so it can make an api call
+        //this.props.onInputChange(this.state.term); would be one letter behind event.target.value
+        this.props.onInputChange(event.target.value);
 
     }
     
@@ -66,7 +67,6 @@ export default class SearchBar extends React.Component{
                             className={`ui selection ${this.open ? 'visible active': ''}`}
                             
                             >                    
-                    <div className="text"></div>
                     
                     <div className={`menu ${this.open ? 'visible transition': ''}`} onClick={()=>this.setState({open: false})}> {this.renderedOptions()}</div>
                 </div>

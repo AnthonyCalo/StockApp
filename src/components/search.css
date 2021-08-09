@@ -2,6 +2,16 @@
     background-color: blue;
     cursor:pointer;
 }
+.suggestions{
+    text-align: center;
+    border: 1px solid;
+    border-color: teal;
+    font-weight: bold;
+}
+input{
+    font-weight: bold;
+    text-align: center;
+}
 .searchBar{
     width: 40%;
     margin-left: 20%;
