@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import StockDetail from './stockdetail';
 import marketStack from '../apis/marketStack';
 import StockList from './stocklist';
-import StonkList2 from './stockList2';
 import alphavantage from '../apis/alphavantage';
 import SearchBar from './SeachBar';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
@@ -93,6 +92,16 @@ const App = ()=>{
             }
         })
     }
+    const signOut = ()=>{
+        axios.get("http://localhost:3001/logout",{
+            withCredentials: true,
+            headers: {
+                "Content-Type": 'application/json'
+            }
+        }).then(response=>{
+            checkSignIn();    
+        })
+    }
     //useEffect hooks______________________________________________________________________________
     useEffect(()=>{
         console.log("GETTING STOCKS");
@@ -105,8 +114,8 @@ const App = ()=>{
     //called every time a stock is selected
     useEffect(()=>{
         if(selectedStock){
-            getStockInfo();
-            getGraphInfo();
+            getStockInfo()
+            getGraphInfo()
         }else{
             console.log("NO stonk selected");
         }
@@ -161,8 +170,33 @@ const App = ()=>{
     }
     
     const removeStock=(symbol)=>{
-        const newStonks = stocks.filter(stock=>stock!==symbol);
-        setStocks(newStonks);
+        if(!isSignedIn){
+            const newStonks = stocks.filter(stock=>stock!==symbol);
+            setStocks(newStonks);
+        }else{
+            axios("http://localhost:3001/remove_user_stock", {
+                method: "POST",
+                data:{
+                    ticker: symbol
+                },
+                withCredentials: true
+            }).then(res=>{
+                console.log(res)
+                checkSignIn()}
+                );
+        }
+        
+    }
+    const topRightRender=()=>{
+        if(isSignedIn){
+            return(
+                <div  className="topRight" onClick={signOut}>Sign Out</div>
+            )
+        }else{
+            return(
+                <div className="topRight"><a href="/login">Click to login/ register</a></div>
+                )
+        }
     }
     //Return/render__________________________________________________________________________________________________
     return(
@@ -172,7 +206,7 @@ const App = ()=>{
                 <div className="ui segment sticky top">
                     <h3 className="site_title">Calo Stock</h3>
                     <SearchBar suggs={suggs} onInputChange={handleChange} clickSugg={searchSelect} />
-                    <button className="checkSigned" onClick={checkSignIn}>Check Signin</button>
+                    {topRightRender()}
                 </div>
                 <div className='container'>
                 <div className="row">
@@ -187,6 +221,12 @@ const App = ()=>{
             </>
             </Route>
             <Route path="/login">
+            <div className="ui segment sticky top">
+                <h1><a href="/" id="homeNav">Back to HomePage</a></h1>
+                <div className="logTitle">
+                    <h1 className="logTitle">Calo Stocks</h1>                
+                </div>
+            </div>
                 <Login />
             </Route>
         </Router>

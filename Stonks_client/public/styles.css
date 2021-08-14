@@ -1,12 +1,37 @@
-.stockItem{
-    display: inline-block;
-    justify-content: center;
-    text-align: center;
+h1{
+    padding: 10px;
 }
-.stockItem:hover{
-    cursor: pointer;
+.logTitle{
+    text-align: center;
+    width: 80%
+}
+h1 a{
+    text-decoration: none;
+    padding: 10px;
 }
 
+.stockItem{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 1em;
+}
+.stockSymbolPrice:hover{
+    cursor: grab;
+}
+.stockSymbolPrice{
+    width: 70%;
+
+}
+.topRight{
+    position: absolute;
+    right: 5%;
+    padding: 1em;
+    font-size: 1.5em;
+}
+.topRight a{
+    text-decoration: none;
+}
 .stock-details{
     margin-top: 3.5em;
 }
@@ -40,6 +65,15 @@
     padding-top: 0.8em;
     margin-left: 02.5em;
 }
+.iconic:hover{
+    caret-color: red;
+    cursor: pointer;
+}
 body{
     background-color: blanchedalmond;
+}
+@media (max-width: 1500px){
+    .top{
+        height: 100px;
+    }
 }

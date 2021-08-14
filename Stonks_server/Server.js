@@ -51,6 +51,9 @@ const userSchema = new mongoose.Schema({
 
 userSchema.plugin(passportLocalMongoose);
 
+//bc of deprecation warning on findOneAndUpdate() function
+mongoose.set('useFindAndModify', false);
+
 const User = new mongoose.model("User", userSchema);
 
 
@@ -109,11 +112,9 @@ app.route("/login")
             console.log("AT the login");
             if (err) console.log(err);
             if(!err){
-                console.log("here");
 
                 passport.authenticate("local")(req,res, ()=>{
-
-                        res.redirect('signedin');
+                        res.send("success");
                     })
                 }
             })
@@ -121,7 +122,6 @@ app.route("/login")
 //returns user stock List
 app.get("/user_stocks", (req, res)=>{
     if(req.isAuthenticated()){
-        console.log("AT STONK LIST");
         User.findOne({ _id: req.user.id}, (err, user)=>{
             res.send(user.stock_list);
         })
@@ -134,21 +134,35 @@ app.post("/add_user_stock", (req, res)=>{
         User.findOne({_id: req.user._id}, (err, user)=>{
             if(err) throw err;
             if(user){
-                console.log(user);
-                console.log(req.body.ticker);
                 user.stock_list.push(req.body.ticker);
                 user.save();
-                console.log("stonk added");
             }else{
                 console.log('No User')
             }
 
         })
     }else{
-        console.log("NOT AUTHENTICATED");
+        res.send("NOT AUTHENTICATED");
     }
     
 });
+
+app.post("/remove_user_stock", (req, res)=>{
+    if(req.isAuthenticated()){
+        User.findOneAndUpdate({_id: req.user._id}, {$pull: {"stock_list": req.body.ticker}}, function(err, done){
+            if(err) throw err;
+            if(done){
+                res.send("UPDATED");
+            }else{
+                res.send("can't find user's stock list");
+            }
+        })
+    }else{
+        console.log(req.user);
+        console.log("authentication issue");
+    }
+
+})
 
 //checks if user signed in . 
 //Returns false or user data

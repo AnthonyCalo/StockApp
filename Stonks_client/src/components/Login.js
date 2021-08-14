@@ -1,5 +1,6 @@
 import React, {useState } from 'react';
 import axios from 'axios';
+import { Tab } from 'semantic-ui-react'
 
 
 const Login =()=>{
@@ -8,7 +9,7 @@ const Login =()=>{
     const [registerUser, setRegisterUser] = useState("");
     const [registerPass, setRegisterPass]=useState('');
     const [signed, setSigned] = useState('');
-    const [sessionKey, setSession] = useState('');
+    const [userMessage, setUserMessage] = useState('');
 
     const login=()=>{
         
@@ -22,6 +23,9 @@ const Login =()=>{
             url: "http://localhost:3001/login"
         }).then(res=>{
             console.log(res.data);
+            if(res.data==="success"){
+                document.getElementById("homeNav").click();
+            }
         })
     };
     const register=()=>{
@@ -60,26 +64,43 @@ const Login =()=>{
             }
         })
     }
-
-    return(
-        <div className="logReg">
-            <div>
+    const panes = [
+        { menuItem: 'Register', render: () => 
+        <Tab.Pane>
+            <div className="ui form">
                 <h1>Register</h1>
-                <input placeholder="user" value={registerUser} onChange={e=>setRegisterUser(e.target.value)} />
-                <input placeholder="pass" value={registerPass} onChange={e=>setRegisterPass(e.target.value)} />
-                <button onClick={register}>Register</button>
+                <div className="field">
+                    <label>Username</label>
+                    <input placeholder="create username" id="regUser" value={registerUser} autofocus onChange={e=>setRegisterUser(e.target.value)} />
+                </div>
+                <div className="field">
+                    <label>Password</label>
+                    <input placeholder="make password" value={registerPass} onChange={e=>setRegisterPass(e.target.value)} />
+                </div>
+                <button className="ui button" onClick={register}>Register</button>
             </div>
-            <div>
+        </Tab.Pane> },
+        { menuItem: 'Login', render: () => 
+            <Tab.Pane>
+                <div className="ui form">
                 <h1>Log in</h1>
-                <input placeholder="username" value={userName} onChange={e=>setUserName(e.target.value)} />
-                <input placeholder="username" value={pass} onChange={e=>setPass(e.target.value)} />
-                <button onClick={login}>Submit</button>
-            </div>
-            <br />
-
-            <button onClick={checkAuth}>Check if authenticated</button><button onClick={signOut}>Sign Out</button>
-                <h3>{signed}</h3>
-            
+                <div className="field">
+                    <label>Username</label>
+                    <input placeholder="username" value={userName} onChange={e=>setUserName(e.target.value)} />
+                </div>
+                <div className="field">
+                    <label>Password</label>
+                    <input placeholder="password" type="password" value={pass} onChange={e=>setPass(e.target.value)} />
+                </div>
+                <button className="ui button" onClick={login}>Submit</button>
+                </div>
+            </Tab.Pane> 
+        },
+      ]
+    
+    return(
+        <div className="logReg container">
+           <Tab panes={panes} />
         </div>
         )
 }
