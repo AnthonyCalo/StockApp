@@ -1,0 +1,32 @@
+.suggestions:hover{
+    background-color: blue;
+    cursor:pointer;
+}
+.suggestions{
+    text-align: center;
+    border: 1px solid;
+    border-color: teal;
+    font-weight: bold;
+}
+input{
+    font-weight: bold;
+    text-align: center;
+}
+.searchBar{
+    width: 40%;
+    margin-left: 20%;
+    margin-top: 0;
+    position: relative;
+    background: #fff;
+    -webkit-box-shadow: 0 1px 2px 0 rgb(34 36 38 / 15%);
+    box-shadow: 0 1px 2px 0 rgb(34 36 38 / 15%);
+    /* margin: 1rem 0; */
+    padding: 1em 1em;
+    border-radius: .28571429rem;
+    border: 1px solid rgba(34,36,38,.15);
+}
+.ui.selection{
+    background-color: white;
+}
+
+

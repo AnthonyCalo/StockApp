@@ -1,0 +1,18 @@
+.myChart{
+    display: flex;
+    justify-content: center;
+    width: 750px;
+    height: 400px;
+    margin-bottom: 10em;
+}
+canvas {
+    padding: 0;
+    margin: auto;
+    display: block;
+    width: 600px;
+    height: 540px;
+    position: absolute;
+    margin-left: 10%;
+    
+
+}

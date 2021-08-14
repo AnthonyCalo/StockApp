@@ -1,0 +1,3 @@
+[submodule "Stonks"]
+	path = Stonks
+	url = https://github.com/paulie-walnuts/Stonks.git
