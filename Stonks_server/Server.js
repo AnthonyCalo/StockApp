@@ -136,6 +136,7 @@ app.post("/add_user_stock", (req, res)=>{
             if(user){
                 user.stock_list.push(req.body.ticker);
                 user.save();
+                res.send("stock added");
             }else{
                 console.log('No User')
             }

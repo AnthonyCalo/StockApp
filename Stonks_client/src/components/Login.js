@@ -8,8 +8,6 @@ const Login =()=>{
     const [pass, setPass] = useState('');
     const [registerUser, setRegisterUser] = useState("");
     const [registerPass, setRegisterPass]=useState('');
-    const [signed, setSigned] = useState('');
-    const [userMessage, setUserMessage] = useState('');
 
     const login=()=>{
         
@@ -57,11 +55,7 @@ const Login =()=>{
                 "Content-Type": 'application/json'
             }
         }).then(response=>{
-            if(response.data===false){
-                setSigned('');
-            }else{
-                setSigned(response.data.username);
-            }
+            
         })
     }
     const panes = [

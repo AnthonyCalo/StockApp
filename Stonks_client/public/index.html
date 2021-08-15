@@ -13,8 +13,10 @@
     <script>
       setTimeout(()=>{
         let input = document.getElementById('regUser');
-        console.log(input, "<-input")
-        input.focus()
+        //autofocus worka around for react
+        if(input){
+          input.focus()
+        }
       },500)
      
     </script>

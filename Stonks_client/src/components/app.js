@@ -18,27 +18,33 @@ const App = ()=>{
     const [username, setUser] = useState('');
     const [isSignedIn, setSignInStatus] = useState(false)
     const [suggs, setSuggs]= useState([]);
-    const [stocks, setStocks] = useState(["V","MSFT"]);
+    const [stocks, setStocks] = useState(["GOOG"]);
 
-        //Format Date properly for API
-        let date = new Date().toISOString().split('T')[0];
-        let val = parseInt(date.slice(5,7), 10);
-        let minOne = val-1;
-        let mOneString = minOne.toString();
-        let lastMonth = date.slice(0,6) + mOneString + date.slice(7,10);
+    //Format Date properly for API
+    let date = new Date().toISOString().split('T')[0];
+    let val = parseInt(date.slice(5,7), 10);
+    let minOne = val-1;
+    let mOneString = minOne.toString();
+    let lastMonth = date.slice(0,6) + mOneString + date.slice(7,10);
+
     //API CALLS________________________________________________________________________________________________________
     const getStonks = async()=>{
-        var stonks= stocks.join();
-        if(!stocks){
-            return;
-        }
         //get all stock list latest price/ basic info
         //called once when page loads
-            const response = await marketStack.get('/intraday/latest',{
-                params: { symbols: `${stonks}`}
-            });
-            SetStockListInfo(response.data.data);
-            return(response.data.data);
+        var stonks= stocks.join();
+        if(stocks.length===0){
+            SetStockListInfo([])
+            return;
+        }
+        
+        const response = await marketStack.get('/intraday/latest',{
+            params: { symbols: `${stonks}`}
+        });
+        console.log(response.data.data)
+        SetStockListInfo(response.data.data);
+        return(response.data.data);
+        //}
+        
         }
         
     const searchBarCall=async(term)=>{
@@ -56,8 +62,7 @@ const App = ()=>{
                 symbol: selectedStock.symbol
             }
         });
-        //console.log("called getInfo");
-        //console.log(response.data);
+
         setSelectedDetails(response.data)
     }
 
@@ -82,12 +87,13 @@ const App = ()=>{
         }).then(response=>{
             //respons.data ===false when not signed in 
             if(response.data===false){
-                console.log("SIGN IN FALSE");
                 setSignInStatus(false);
                 return(false);
             }else{
                 setSignInStatus(true);
                 setStocks(response.data.stock_list);
+                setUser(response.data.username);
+                console.log(username, "<-username");
                 return(true);
             }
         })
@@ -99,21 +105,17 @@ const App = ()=>{
                 "Content-Type": 'application/json'
             }
         }).then(response=>{
-            checkSignIn();    
+            window.location.reload();
         })
     }
     //useEffect hooks______________________________________________________________________________
     useEffect(()=>{
-        console.log("GETTING STOCKS");
-        console.log(stocks, "<- BEFORE GET STONKS");
         getStonks()
-        //console.log("stocks:");
-        //console.log(stocks);
     }, [stocks], [isSignedIn])
     //get individual stock greater details.
     //called every time a stock is selected
     useEffect(()=>{
-        if(selectedStock){
+        if(selectedStock.length!==0){
             getStockInfo()
             getGraphInfo()
         }else{
@@ -154,13 +156,17 @@ const App = ()=>{
             //     }
 
             //     })
-            console.log("check sign in true");
             axios("http://localhost:3001/add_user_stock",{
                 method: "POST",
                 data:{
                     ticker: ticker
                 },
                 withCredentials: true
+            }).then((res)=>{
+                console.log("RESPONSE ADD STONK");
+                console.log(res);
+
+                checkSignIn();
             });
         }else{
             console.log("TICKER", ...stocks);
@@ -181,7 +187,6 @@ const App = ()=>{
                 },
                 withCredentials: true
             }).then(res=>{
-                console.log(res)
                 checkSignIn()}
                 );
         }
@@ -214,7 +219,7 @@ const App = ()=>{
                         <StockDetail stock={selectedStock} details={selectedDetails} graphData={graphData}/>
                     </div>
                     <div className="col-md-4 " >
-                        <StockList Stonks={StockListInfo} onStockSelect={selectStock} removeStock={removeStock}/>
+                        <StockList Stonks={StockListInfo} user={username} onStockSelect={selectStock} removeStock={removeStock}/>
                     </div>
                 </div>
                 </div>
