@@ -1,11 +1,10 @@
-import React from 'react';
-import marketStack from '../apis/marketStack';
+import React, {useState} from 'react';
 import LineGraph from './graph';
 import Accordion from './Accordion';
 
 
-const StockDetail=({stock, details, graphData})=>{
-    
+const StockDetail=({stock, details, graphData, longData})=>{
+    const [graphTime, setGraphTime] = useState('30d');
     const items=
         [
             {
@@ -13,11 +12,26 @@ const StockDetail=({stock, details, graphData})=>{
                 content: details.Description
             }
         ]
+    const handleGTime=(event)=>{
+        if(event.target.innerHTML==="100d"){
+            document.getElementById("trenta").classList.remove("selectedGraph");
+            document.getElementById('cento').classList.add("selectedGraph");
+            setGraphTime('100d');
+        }else{
+            document.getElementById("cento").classList.remove("selectedGraph");
+            document.getElementById('trenta').classList.add("selectedGraph");
+            setGraphTime('30d')
+        }
+    }
     return(
         <div className="ui segment stock_detail_card">
             <h1>{details.Name}</h1>
             <p>{details.Symbol}</p>
-            <LineGraph graphData={graphData}/>
+            <div className="graphTime">
+                <button id="trenta" className="thirtyButton timeBtn selectedGraph" onClick={(e)=>handleGTime(e)}>30d</button>
+                <button id="cento" className="centoButton timeBtn" onClick={(e)=>handleGTime(e)}>100d</button>
+            </div>
+            <LineGraph graphData={graphData} longData={longData} graphTime={graphTime}/>
 
             <div className="ui middle aligned divided list stock_info">
                 <div className="item">

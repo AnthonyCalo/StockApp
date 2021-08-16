@@ -1,18 +1,28 @@
 .myChart{
     display: flex;
-    justify-content: center;
-    width: 750px;
+    justify-content: left;
     height: 400px;
-    margin-bottom: 10em;
+    width: 98%;
+    margin-bottom: 12em;
 }
 canvas {
     padding: 0;
     margin: auto;
     display: block;
-    width: 600px;
-    height: 540px;
+    width: 100%;
     position: absolute;
     margin-left: 10%;
-    
-
 }
+@media (max-width: 1320px){
+    .myChart{
+        height: 350px;
+    }
+}
+@media (max-width: 1200px){
+    .myChart{
+        height: 200px;
+        margin-bottom: 14em;
+
+    }
+}
+

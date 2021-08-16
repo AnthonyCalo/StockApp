@@ -1,28 +1,78 @@
+.timeBtn{
+    background-color: transparent;
+}
 h1{
     padding: 10px;
 }
-.logTitle{
-    text-align: center;
-    width: 80%
-}
+
 h1 a{
     text-decoration: none;
     padding: 10px;
 }
+canvas{
+    margin-bottom: 2em;
+}
+.graphTime{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
 
+.logTitle{
+    text-align: center;
+    width: 80%
+}
+
+.selectedGraph{
+    background-color: blue;
+    color: white;
+    
+}
+
+.stock_detail_card h1{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+.stock_detail_card button{
+    justify-content: center;
+}
+.stock_detail_card p{
+    text-align: center;
+}
+
+.stock_info{
+    font-weight: bold;
+    font-size: 2em;
+    margin-top: 6em;
+}
 .stockItem{
     display: flex;
     flex-direction: row;
     justify-content: center;
     padding: 1em;
 }
+.stockList{
+    display: block;
+}
 .stockSymbolPrice:hover{
     cursor: grab;
 }
 .stockSymbolPrice{
     width: 70%;
-
 }
+.stockSymbolPrice p{
+    font-weight: bold;
+}
+.timeBtn{
+    margin:5px;
+    border-radius: 40%;
+    font-weight: bold;
+    border: 1px solid;
+    border-color: green;
+    text-align: center;
+}
+
 .topRight{
     position: absolute;
     right: 5%;
@@ -32,24 +82,7 @@ h1 a{
 .topRight a{
     text-decoration: none;
 }
-.stock-details{
-    margin-top: 3.5em;
-}
-.stock_detail_card h1{
-    text-align: center;
-    display: flex;
-    justify-content: center;
-}
-.stock_detail_card p{
-    text-align: center;
-}
-.stockList{
-    display: block;
-}
-.stock_info{
-    font-weight: bold;
-    font-size: 2em;
-}
+
 
 .top{
     width: 100%;

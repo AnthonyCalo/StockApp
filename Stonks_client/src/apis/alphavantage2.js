@@ -1,10 +1,11 @@
 import axios from 'axios';
 const { REACT_APP_MY_ENV } = process.env;
 
+
 export default axios.create({
-    baseURL: 'http://api.marketstack.com/v1/',
+    baseURL: 'https://www.alphavantage.co/query?',
     params: {
-        access_key: process.env.MARKETSTACK
+        apikey: process.env.ALPHAVANTAGE2
     }
 })
 

@@ -3,6 +3,7 @@ import StockDetail from './stockdetail';
 import marketStack from '../apis/marketStack';
 import StockList from './stocklist';
 import alphavantage from '../apis/alphavantage';
+import alphavantage2 from '../apis/alphavantage2';
 import SearchBar from './SeachBar';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Login from './Login';
@@ -14,6 +15,7 @@ const App = ()=>{
     const [selectedStock, setSelectedStock] = useState([]); 
     const [selectedDetails, setSelectedDetails]=useState([]);
     const [graphData, setGraphData] = useState([]);
+    const [longGraphData, setLongGraph] = useState([]);
     const [search, setSearch] = useState('');
     const [username, setUser] = useState('');
     const [isSignedIn, setSignInStatus] = useState(false)
@@ -40,15 +42,29 @@ const App = ()=>{
         const response = await marketStack.get('/intraday/latest',{
             params: { symbols: `${stonks}`}
         });
-        console.log(response.data.data)
         SetStockListInfo(response.data.data);
         return(response.data.data);
         //}
         
         }
+    const getLongData = async()=>{
+        const response = await alphavantage2.get('',{
+            params: {
+                function: "TIME_SERIES_DAILY",
+                symbol:selectedStock.symbol
+            }
+        });
+        var timeseries= []
+        for(var i in response.data["Time Series (Daily)"]){
+            timeseries.push({"Date":[i][0], "Data": response.data["Time Series (Daily)"] [i]});
+        }
+        console.log(timeseries)
+        setLongGraph(timeseries);
+
+    }
         
     const searchBarCall=async(term)=>{
-        const response= await alphavantage.get(``,{
+        const response= await alphavantage2.get(``,{
             params: {
                 function: 'SYMBOL_SEARCH',
                 keywords: term           }
@@ -93,7 +109,6 @@ const App = ()=>{
                 setSignInStatus(true);
                 setStocks(response.data.stock_list);
                 setUser(response.data.username);
-                console.log(username, "<-username");
                 return(true);
             }
         })
@@ -118,6 +133,7 @@ const App = ()=>{
         if(selectedStock.length!==0){
             getStockInfo()
             getGraphInfo()
+            getLongData()
         }else{
             console.log("NO stonk selected");
         }
@@ -163,13 +179,9 @@ const App = ()=>{
                 },
                 withCredentials: true
             }).then((res)=>{
-                console.log("RESPONSE ADD STONK");
-                console.log(res);
-
                 checkSignIn();
             });
         }else{
-            console.log("TICKER", ...stocks);
             setStocks([ticker,...stocks]);
         }
         //console.log(stocks);
@@ -216,7 +228,7 @@ const App = ()=>{
                 <div className='container'>
                 <div className="row">
                     <div className="col-md-8 stock-details">
-                        <StockDetail stock={selectedStock} details={selectedDetails} graphData={graphData}/>
+                        <StockDetail stock={selectedStock} details={selectedDetails} longData={longGraphData} graphData={graphData}/>
                     </div>
                     <div className="col-md-4 " >
                         <StockList Stonks={StockListInfo} user={username} onStockSelect={selectStock} removeStock={removeStock}/>

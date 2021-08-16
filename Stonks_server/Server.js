@@ -102,14 +102,12 @@ app.post("/register", (req,res)=>{
 //login with passport local strategy    
 app.route("/login")
     .post((req, res)=>{
-        console.log("request recieved");
         const user = new User({
             username: req.body.username,
             password: req.body.password
         })
     
         req.login(user, function(err){
-            console.log("AT the login");
             if (err) console.log(err);
             if(!err){
 
@@ -159,7 +157,6 @@ app.post("/remove_user_stock", (req, res)=>{
             }
         })
     }else{
-        console.log(req.user);
         console.log("authentication issue");
     }
 
@@ -168,7 +165,6 @@ app.post("/remove_user_stock", (req, res)=>{
 //checks if user signed in . 
 //Returns false or user data
 app.get("/signedin", function(req, res){
-    console.log(req.user);
     //req.isauthenticated works because client axios sends withCrenentials
     //passport method checks if user is signed in 
     if(req.isAuthenticated()){
