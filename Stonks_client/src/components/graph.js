@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Line } from 'react-chartjs-2';
 import './graph.css';
 
 
 const LineGraph = (props) =>{
-    console.log(props);
 //arrays of graph data _____________________________________________________________________________________________________________
     //30 day graphs________________
     var dates = [];

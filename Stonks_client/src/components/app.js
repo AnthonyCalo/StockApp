@@ -12,15 +12,15 @@ import axios from 'axios';
 const App = ()=>{
     //useStateHooks______________________________________________________
     const [StockListInfo, SetStockListInfo] = useState([]); //info for stockList
-    const [selectedStock, setSelectedStock] = useState([]); 
-    const [selectedDetails, setSelectedDetails]=useState([]);
-    const [graphData, setGraphData] = useState([]);
-    const [longGraphData, setLongGraph] = useState([]);
-    const [search, setSearch] = useState('');
+    const [selectedStock, setSelectedStock] = useState([]); //stock selected to render details/ graph
+    const [selectedDetails, setSelectedDetails]=useState([]); //info from api for select stock
+    const [graphData, setGraphData] = useState([]); //30d graph data
+    const [longGraphData, setLongGraph] = useState([]); //100d graph data
+    const [search, setSearch] = useState(''); //search bar
     const [username, setUser] = useState('');
-    const [isSignedIn, setSignInStatus] = useState(false)
-    const [suggs, setSuggs]= useState([]);
-    const [stocks, setStocks] = useState(["GOOG"]);
+    const [isSignedIn, setSignInStatus] = useState(false);
+    const [suggs, setSuggs]= useState([]); //search suggestions
+    const [stocks, setStocks] = useState(["GOOG"]); //stock list. passed user stocks when signed in 
 
     //Format Date properly for API
     let date = new Date().toISOString().split('T')[0];
@@ -37,41 +37,41 @@ const App = ()=>{
         if(stocks.length===0){
             SetStockListInfo([])
             return;
-        }
-        
+        } 
         const response = await marketStack.get('/intraday/latest',{
             params: { symbols: `${stonks}`}
         });
         SetStockListInfo(response.data.data);
-        return(response.data.data);
-        //}
-        
+        return(response.data.data);       
         }
+
     const getLongData = async()=>{
+        //100d graph info
         const response = await alphavantage2.get('',{
             params: {
                 function: "TIME_SERIES_DAILY",
                 symbol:selectedStock.symbol
             }
         });
-        var timeseries= []
+        var timeseries= [];
         for(var i in response.data["Time Series (Daily)"]){
             timeseries.push({"Date":[i][0], "Data": response.data["Time Series (Daily)"] [i]});
         }
-        console.log(timeseries)
         setLongGraph(timeseries);
-
     }
-        
+    
     const searchBarCall=async(term)=>{
-        const response= await alphavantage2.get(``,{
+    //results are suggestions when searching. Called after each key press in search bar
+        const response= await alphavantage.get(``,{
             params: {
                 function: 'SYMBOL_SEARCH',
                 keywords: term           }
         });
         setSuggs(response.data.bestMatches);
     }
+
     const getStockInfo=async()=>{
+        //basic info for stockList / stockItem component
         const response= await alphavantage.get(``,{
             params: {
                 function: 'OVERVIEW',
@@ -82,8 +82,8 @@ const App = ()=>{
         setSelectedDetails(response.data)
     }
 
-
     const getGraphInfo=async()=>{
+    //30d graph info
         const response = await marketStack.get('/eod',{
             params: {
                 symbols: selectedStock.symbol,
@@ -92,16 +92,17 @@ const App = ()=>{
             }   
         });
         setGraphData(response.data.data);
-
     }
+
     const checkSignIn=()=>{
+        //checks if user signed in. If yes it retrieves the user's stock list and sets as stocks
         axios.get("http://localhost:3001/signedin",{
             withCredentials: true,
             headers: {
                 "Content-Type": 'application/json'
             }
         }).then(response=>{
-            //respons.data ===false when not signed in 
+            //response.data ===false when not signed in 
             if(response.data===false){
                 setSignInStatus(false);
                 return(false);
@@ -114,19 +115,23 @@ const App = ()=>{
         })
     }
     const signOut = ()=>{
+        //simple logout
         axios.get("http://localhost:3001/logout",{
             withCredentials: true,
             headers: {
                 "Content-Type": 'application/json'
             }
         }).then(response=>{
+            //reload the page to call a use effect that will register signout
             window.location.reload();
         })
     }
+
     //useEffect hooks______________________________________________________________________________
     useEffect(()=>{
         getStonks()
-    }, [stocks], [isSignedIn])
+    }, [stocks], [isSignedIn]);
+
     //get individual stock greater details.
     //called every time a stock is selected
     useEffect(()=>{
@@ -138,9 +143,9 @@ const App = ()=>{
             console.log("NO stonk selected");
         }
     }, [selectedStock])
+    //checks if user's signed in. called on 1st pageload. checks signed in status
     useEffect(async ()=>{
-        let signed_in = checkSignIn();
-
+        checkSignIn();
     },[]);
     
     useEffect(()=>{
@@ -164,20 +169,12 @@ const App = ()=>{
     }
     const searchSelect=(ticker)=>{
         if(isSignedIn){
-            //WOn't set credentials. Unauthenticated request from server even when signed in
-            // axios.post("http://localhost:3001/add_user_stock", {
-            //     withCredentials: true,
-            //     body: {
-            //         ticker: ticker
-            //     }
-
-            //     })
             axios("http://localhost:3001/add_user_stock",{
                 method: "POST",
                 data:{
                     ticker: ticker
                 },
-                withCredentials: true
+                withCredentials: true //<- require for server to recognize cookies
             }).then((res)=>{
                 checkSignIn();
             });
@@ -201,8 +198,7 @@ const App = ()=>{
             }).then(res=>{
                 checkSignIn()}
                 );
-        }
-        
+        } 
     }
     const topRightRender=()=>{
         if(isSignedIn){

@@ -10,7 +10,6 @@ const StockList = (props)=>{
             <StockItem stockData={item} onStockSelect={props.onStockSelect} removeStock={props.removeStock}/>
         )
     })
-    console.log(props.Stonks);
     const renderContent=()=>{
         if(props.Stonks.length===0){
             return(

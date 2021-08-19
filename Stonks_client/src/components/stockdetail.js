@@ -1,9 +1,60 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import alphavantage from '../apis/alphavantage';
 import LineGraph from './graph';
 import Accordion from './Accordion';
 
 
+
 const StockDetail=({stock, details, graphData, longData})=>{
+    const [deets, setDeets] = useState({})
+    const getDeets =async(symbol)=>{
+        const response = await alphavantage.get('',{
+            params: { 
+                function: "GLOBAL_QUOTE",
+                symbol: symbol
+            }
+        });
+     //TO DO CLOSE
+     try{
+        var StockInfo={
+            "open": response.data["Global Quote"]["02. open"],
+            "close": response.data["Global Quote"]["05. price"],
+            "symbol": stock,
+            "volume": response.data["Global Quote"]["06. volume"],
+            "lastDay": response.data["Global Quote"]["07. latest trading day"],
+            "prevClose": response.data["Global Quote"]["08. previous close"],
+            "change" : response.data["Global Quote"]["09. change"],
+            "changePct" : response.data["Global Quote"]["10. change percent"],
+            "high": response.data["Global Quote"]["03. high"]
+        }
+        setDeets(StockInfo);
+     }catch(err){
+         console.log(err, "ERROR API");
+         var APILIMIT={
+            "open": "API limit reached",
+            "close": "API LIMIT reached",
+            "symbol": stock,
+            "volume": "API LIMIT REACHED",
+            "lastDay": "API LIMIT REACHED",
+            "prevClose": "API LIMIT REACHED",
+            "change" : "API Limit Reached",
+            "changePct": "API LIMIT REACHED",
+            "high": "API LIMIT REACHED" 
+        }
+        if(err){
+        setDeets(APILIMIT);
+
+        }
+     }
+     
+    }
+    useEffect(()=>{
+        if(details){
+            getDeets(details.Symbol);
+        }
+    },[details])
+    
+
     const [graphTime, setGraphTime] = useState('30d');
     const items=
         [
@@ -32,26 +83,38 @@ const StockDetail=({stock, details, graphData, longData})=>{
                 <button id="cento" className="centoButton timeBtn" onClick={(e)=>handleGTime(e)}>100d</button>
             </div>
             <LineGraph graphData={graphData} longData={longData} graphTime={graphTime}/>
-
-            <div className="ui middle aligned divided list stock_info">
+            <div className="details_stock">
+            <div className="ui divided list stock_info">
                 <div className="item">
-                    <div className="ui right floated content">${stock.last}</div>
-                    <div className="content">LastPrice: </div>
+                    <div className="ui right floated content">${deets.close}</div>
+                    <div className="content">Price: </div>
+                </div>
+                <div className="item">
+                    <div className="ui right floated content">${deets.change}</div>
+                    <div className="content">Change: </div>
+                </div>
+                <div className="item">
+                    <div className="ui right floated content">{deets.changePct}</div>
+                    <div className="content">Change Percentage: </div>
                 </div>
                 <div className="item">
                     <div className="ui right floated content">${stock.open}</div>
                     <div className="content">Open: </div>
                 </div>
                 <div className="item">
+                    <div className="ui right floated content">{deets.lastDay}</div>
+                    <div className="content">Last trading day: </div>
+                </div>
+                <div className="item">
                     <div className="ui right floated content">${stock.low}</div>
                     <div className="content">Daily Low: </div>
                 </div>
                 <div className="item">
-                    <div className="ui right floated content">${stock.high}</div>
+                    <div className="ui right floated content">${deets.high}</div>
                     <div className="content">Daily High: </div>
                 </div>
                 <div className="item">
-                    <div className="ui right floated content">{stock.volume}</div>
+                    <div className="ui right floated content">{deets.volume}</div>
                     <div className="content">Volume: </div>
                 </div>
                 <div className="item">
@@ -76,6 +139,7 @@ const StockDetail=({stock, details, graphData, longData})=>{
                 </div>
                 <div className="item">
                    <Accordion items={ items } />
+                </div>
                 </div>
 
             </div>
