@@ -5,9 +5,10 @@ const StockList = (props)=>{
 
     const [items, setItems] = useState([]);
 
-    const itemsToRender= props.Stonks.map(item =>{
+    const itemsToRender= props.Stonks.map((item,index) =>{
+        console.log(index)
         return(
-            <StockItem stockData={item} onStockSelect={props.onStockSelect} removeStock={props.removeStock}/>
+            <StockItem key={index+1}stockData={item} onStockSelect={props.onStockSelect} removeStock={props.removeStock}/>
         )
     })
     const renderContent=()=>{

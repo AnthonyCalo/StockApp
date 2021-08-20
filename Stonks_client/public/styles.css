@@ -1,3 +1,30 @@
+body{
+    --background-color: blanchedalmond;
+    --header-color:burlywood; 
+    --detail-color:white;
+    --detailh1-color: black;
+    --text-color: black;
+    --title-color: black;
+}
+body.dark{
+    --background-color: rgb(61, 60, 60);
+    --header-color:black; 
+    --detail-color:rgb(5, 5, 5);
+    --detailh1-color: white;
+    --text-color: white;
+    --title-color: green;
+
+}
+
+center{
+    color: var(--text-color);
+}
+body{
+    background-color: var(--background-color);
+}
+#root{
+    background-color: var(--background-color);
+}
 .timeBtn{
     background-color: transparent;
 }
@@ -21,43 +48,99 @@ canvas{
     display: flex;
     justify-content: center;
 }
-
+.iconic:hover{
+    background-color:red;
+    cursor: pointer;
+}
+i.icon, i.icons {
+    font-size: 2em;
+}
+.icon.sun{
+    color: orange;
+    padding-left: 1.5em;
+    padding-right:-1.5em;
+}
+.icon.moon{
+    color: rgb(31, 30, 29);
+    padding-left: 1.5em;
+    padding-right:-1.5em;
+}
 .logTitle{
     text-align: center;
-    width: 80%
+    width: 80%;
+    color: var(--text-color);
 }
 
 .selectedGraph{
     background-color: blue;
-    color: white;
-    
+    color: white;    
 }
 
 .stock_detail_card h1{
     text-align: center;
     display: flex;
     justify-content: center;
+    color: var(--text-color);
 }
 .stock_detail_card button{
     justify-content: center;
+    color: var(--text-color);
 }
 .stock_detail_card p{
     text-align: center;
+    color: var(--text-color);
+}
+.stock_info.content{
+    color: var(--text-color);
+    background-color: var(--detail-color);
+}
+.themeChange{
+    float:  left;
+    margin-top:14px;
 }
 
+.ui.styled.accordion{
+    color: var(--text-color);
+    background-color: var(--detail-color);
+}
+.ui.styled.accordion .title{
+    color: var(--text-color);
+    background-color: var(--detail-color);
+}
+.ui.styled.accordion .active.title{
+    color: var(--text-color);
+    background-color: var(--detail-color);
+}
+.ui.styled.accordion .title:hover{
+    color: blue;
+}
 
+.ui.form h1{
+    color: var(--text-color);
+}
+.ui.button{
+    padding: 1.5em;
+    color: black;
+    font-size:1.1em;
+}
+.site_title{
+    color:var(--title-color);
+}
 .stock_info{
     width: 75%;
     padding: 4em;
     font-weight: bold;
     font-size: 2em;
     margin-top: 6em;
+    color: var(--detailh1-color)
 }
 .stockItem{
     display: flex;
     flex-direction: row;
     justify-content: center;
     padding: 1em;
+    background-color: var(--detail-color);
+    color: var(--text-color);
 }
 .stockList{
     display: block;
@@ -99,22 +182,20 @@ canvas{
 .ui.segment.top{
     padding: 0;
     display: flex;
-    background-color:burlywood;
+    background-color:var(--header-color);
 }
 .site_title{
     padding-top: 0.8em;
     margin-left: 02.5em;
 }
-.iconic:hover{
-    caret-color: red;
-    cursor: pointer;
-}
+
 .topRight:hover{
     cursor: pointer;
 }
-body{
-    background-color: blanchedalmond;
+.ui.segment{
+    background-color:var(--detail-color);
 }
+
 @media (max-width: 1500px){
     .top{
         height: 100px;

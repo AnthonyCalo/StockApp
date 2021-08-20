@@ -1,16 +1,23 @@
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import StockDetail from './stockdetail';
 import marketStack from '../apis/marketStack';
 import StockList from './stocklist';
 import alphavantage from '../apis/alphavantage';
 import alphavantage2 from '../apis/alphavantage2';
 import SearchBar from './SeachBar';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Link,Route} from 'react-router-dom';
 import Login from './Login';
 import axios from 'axios';
 
+const DarkTheme = {
+    pageBackground: "black",
+    titleColor: "green",
+    taglineColor: "Lavender "
+}
 const App = ()=>{
     //useStateHooks______________________________________________________
+    const [theme, setTheme] = useState("light");
+    const [iconName, setIconName] = useState("moon")
     const [StockListInfo, SetStockListInfo] = useState([]); //info for stockList
     const [selectedStock, setSelectedStock] = useState([]); //stock selected to render details/ graph
     const [selectedDetails, setSelectedDetails]=useState([]); //info from api for select stock
@@ -207,8 +214,19 @@ const App = ()=>{
             )
         }else{
             return(
-                <div className="topRight"><a href="/login">Click to login/ register</a></div>
+                <div className="topRight"><Link to="/login">Click to login/ register</Link></div>
                 )
+        }
+    }
+    const addDark = ()=>{
+        const body = document.body;
+        console.log(body, "body");
+        if(body.classList.contains("dark")){
+            setIconName("moon")
+            body.classList.remove("dark")
+        }else{
+            setIconName("sun");
+            body.classList.add("dark");
         }
     }
     //Return/render__________________________________________________________________________________________________
@@ -218,6 +236,9 @@ const App = ()=>{
             <>
                 <div className="ui segment sticky top">
                     <h3 className="site_title">Calo Stock</h3>
+                    <div className="themeChange"  onClick={()=>addDark()}>
+                        <i className={`icon ${iconName}`} size="mid"></i>
+                    </div>
                     <SearchBar suggs={suggs} onInputChange={handleChange} clickSugg={searchSelect} />
                     {topRightRender()}
                 </div>
@@ -236,6 +257,9 @@ const App = ()=>{
             <Route path="/login">
             <div className="ui segment sticky top">
                 <h1><a href="/" id="homeNav">Back to HomePage</a></h1>
+                <div className="themeChange"  onClick={()=>addDark()}>
+                        <i className={`icon ${iconName}`} size="mid"></i>
+                </div>
                 <div className="logTitle">
                     <h1 className="logTitle">Calo Stocks</h1>                
                 </div>

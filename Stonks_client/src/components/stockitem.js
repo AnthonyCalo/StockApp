@@ -2,6 +2,7 @@ import React from 'react';
 
 
 const StockItem=(props)=>{
+    console.log(props);
     var priceColor="black";
     
     if(props.stockData.last>props.stockData.open){
@@ -9,9 +10,10 @@ const StockItem=(props)=>{
     }else if(props.stockData.last< props.stockData.open){
         priceColor='red';
     }
+    console.log(props.key)
     return(
         <div className="list-group-item stockItem" key={props.stockData.symbol}>
-            <div className='stockSymbolPrice'  onClick={()=>props.onStockSelect(props.stockData)} >
+            <div className='stockSymbolPrice'  id={props.key} onClick={()=>props.onStockSelect(props.stockData)} >
                 <h2>{props.stockData.symbol}</h2>
                 <p style={{"color":`${priceColor}`}}>{props.stockData.last}</p>            
             </div>
