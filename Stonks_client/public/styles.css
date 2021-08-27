@@ -48,6 +48,9 @@ canvas{
     display: flex;
     justify-content: center;
 }
+.homeNav{
+    font-size: 1.5em;
+}
 .iconic:hover{
     background-color:red;
     cursor: pointer;
@@ -57,13 +60,12 @@ i.icon, i.icons {
 }
 .icon.sun{
     color: orange;
-    padding-left: 1.5em;
-    padding-right:-1.5em;
 }
 .icon.moon{
     color: rgb(31, 30, 29);
-    padding-left: 1.5em;
-    padding-right:-1.5em;
+}
+label{
+    color: var(--text-color);
 }
 .logTitle{
     text-align: center;
@@ -96,6 +98,7 @@ i.icon, i.icons {
 }
 .themeChange{
     float:  left;
+    justify-content:center;
     margin-top:14px;
 }
 
@@ -154,6 +157,21 @@ i.icon, i.icons {
 .stockSymbolPrice p{
     font-weight: bold;
 }
+.themeChange{
+    margin-left: 1.5em;
+    margin-right: -1.5em;
+}
+.themeChange:hover{
+    cursor: pointer;
+}
+.themeChangeLog{
+    margin-left: 1.5em;
+    margin-right: -1.5em;
+    margin-top: 10px;
+}
+.themeChangeLog:hover{
+    cursor: pointer;
+}
 .timeBtn{
     margin:5px;
     border-radius: 40%;
@@ -168,6 +186,14 @@ i.icon, i.icons {
     right: 5%;
     padding: 1em;
     font-size: 1.5em;
+    color: var(--title-color);
+}
+.ui.tabular.menu .item {
+    color: var(--text-color);
+    font-weight: bold;
+}
+.ui.form .field > label{
+    color: var(--text-color);
 }
 .topRight a{
     text-decoration: none;
@@ -196,7 +222,7 @@ i.icon, i.icons {
     background-color:var(--detail-color);
 }
 
-@media (max-width: 1500px){
+@media (max-width: 1200px){
     .top{
         height: 100px;
     }

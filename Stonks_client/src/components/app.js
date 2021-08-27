@@ -256,8 +256,8 @@ const App = ()=>{
             </Route>
             <Route path="/login">
             <div className="ui segment sticky top">
-                <h1><a href="/" id="homeNav">Back to HomePage</a></h1>
-                <div className="themeChange"  onClick={()=>addDark()}>
+                <h1 className="homeNav"><Link to="/" id="homeNav">Back to HomePage</Link></h1>
+                <div className="themeChangeLog"  onClick={()=>addDark()}>
                         <i className={`icon ${iconName}`} size="mid"></i>
                 </div>
                 <div className="logTitle">

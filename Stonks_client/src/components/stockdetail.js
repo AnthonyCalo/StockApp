@@ -63,6 +63,14 @@ const StockDetail=({stock, details, graphData, longData})=>{
                 content: details.Description
             }
         ]
+    const renderPrice=()=>{
+        let day = new Date();
+        if (day.getHours()>16 || day.getHours()<9 || day.getDay() === 6 || day.getDay()===0){
+            return(deets.close)
+        }else{
+            return(stock.last)
+        }
+    }
     const handleGTime=(event)=>{
         if(event.target.innerHTML==="100d"){
             document.getElementById("trenta").classList.remove("selectedGraph");
@@ -86,7 +94,7 @@ const StockDetail=({stock, details, graphData, longData})=>{
             <div className="details_stock">
             <div className="ui divided list stock_info">
                 <div className="item">
-                    <div className="ui right floated content">${deets.close}</div>
+                    <div className="ui right floated content">${renderPrice()}</div>
                     <div className="content">Price: </div>
                 </div>
                 <div className="item">

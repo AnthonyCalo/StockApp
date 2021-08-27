@@ -85,19 +85,6 @@ app.post("/register", (req,res)=>{
     })
     
 });
-// User.findOne({username: req.body.username},async (err, doc)=>{
-    //     if (err) throw err;
-    //     if (doc) res.send("User already exists");
-    //     if(!doc){
-    //         const hashedPass = await bcrypt.hash(req.body.password, 10);
-    //         const newUser = new User({
-    //             username: req.body.username,
-    //             password: hashedPass
-    //         });
-    //         await newUser.save();
-    //         res.send("user created");
-    //     }
-    // })
 
 //login with passport local strategy    
 app.route("/login")

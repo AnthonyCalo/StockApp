@@ -12,13 +12,16 @@
     <div id="root"></div>
     <script>
       setTimeout(()=>{
+        let firstStock=document.getElementById('FirstStock');
+        if(firstStock){
+          firstStock.click();
+        }
         let input = document.getElementById('regUser');
         //autofocus worka around for react
         if(input){
           input.focus()
         }
-        var fuck = document.getElementById('1');
-        console.log(fuck)
+        
      },500)
 
     </script>
