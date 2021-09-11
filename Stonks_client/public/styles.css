@@ -15,6 +15,9 @@ body.dark{
     --title-color: green;
 
 }
+.apiIssue{
+    color: var(--text-color);
+}
 
 center{
     color: var(--text-color);
@@ -51,6 +54,9 @@ canvas{
 .homeNav{
     font-size: 1.5em;
 }
+.homeSignIn{
+    display: none;
+}
 .iconic:hover{
     background-color:red;
     cursor: pointer;
@@ -86,7 +92,6 @@ label{
 }
 .stock_detail_card button{
     justify-content: center;
-    color: var(--text-color);
 }
 .stock_detail_card p{
     text-align: center;
@@ -102,30 +107,7 @@ label{
     margin-top:14px;
 }
 
-.ui.styled.accordion{
-    color: var(--text-color);
-    background-color: var(--detail-color);
-}
-.ui.styled.accordion .title{
-    color: var(--text-color);
-    background-color: var(--detail-color);
-}
-.ui.styled.accordion .active.title{
-    color: var(--text-color);
-    background-color: var(--detail-color);
-}
-.ui.styled.accordion .title:hover{
-    color: blue;
-}
 
-.ui.form h1{
-    color: var(--text-color);
-}
-.ui.button{
-    padding: 1.5em;
-    color: black;
-    font-size:1.1em;
-}
 .site_title{
     color:var(--title-color);
 }
@@ -179,8 +161,13 @@ label{
     border: 1px solid;
     border-color: green;
     text-align: center;
+    color: var(--text-color);
 }
-
+/* selected graph not alphabetical for a reason */
+.selectedGraph{
+    background-color: blue;
+    color: white;    
+}
 .topRight{
     position: absolute;
     right: 5%;
@@ -194,6 +181,30 @@ label{
 }
 .ui.form .field > label{
     color: var(--text-color);
+}
+.ui.styled.accordion{
+    color: var(--text-color);
+    background-color: var(--detail-color);
+}
+.ui.styled.accordion .title{
+    color: var(--text-color);
+    background-color: var(--detail-color);
+}
+.ui.styled.accordion .active.title{
+    color: var(--text-color);
+    background-color: var(--detail-color);
+}
+.ui.styled.accordion .title:hover{
+    color: blue;
+}
+
+.ui.form h1{
+    color: var(--text-color);
+}
+.ui.button{
+    padding: 1.5em;
+    color: black;
+    font-size:1.1em;
 }
 .topRight a{
     text-decoration: none;
@@ -222,7 +233,7 @@ label{
     background-color:var(--detail-color);
 }
 
-@media (max-width: 1200px){
+@media (max-width: 900px){
     .top{
         height: 100px;
     }

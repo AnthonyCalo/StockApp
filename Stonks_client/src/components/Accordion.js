@@ -9,7 +9,6 @@ const Accordion =({ items })=>{
         }else{
             setActiveIndex(index.index);
         }
-        //console.log(index);
     }
     const renderedItems = items.map((item, index)=>{
         if(activeIndex===index){

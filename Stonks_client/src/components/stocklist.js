@@ -5,12 +5,7 @@ const StockList = (props)=>{
 
     const [items, setItems] = useState([]);
     const FirstStockRef= useRef();
-
-    useEffect(()=>{
-        console.log('PUSSY', FirstStockRef.current)
-    }, [])
     const itemsToRender= props.Stonks.map((item,index) =>{
-        console.log(index)
         return(
             <StockItem key={index+1} index={index} stockData={item} onStockSelect={props.onStockSelect} removeStock={props.removeStock}/>
         )

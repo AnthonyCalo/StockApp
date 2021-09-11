@@ -22,7 +22,7 @@ const Login =()=>{
         }).then(res=>{
             console.log(res.data);
             if(res.data==="success"){
-                document.getElementById("homeNav").click();
+                document.getElementById("homeSignIn").click();
             }
         })
     };
@@ -36,7 +36,9 @@ const Login =()=>{
             withCredentials: true,
             url: "http://localhost:3001/register"
         }).then(res=>{
-            console.log(res);
+            if(res.data==="new user added"){
+                document.getElementById("homeSignIn").click();
+            }
         })
     };
     const signOut = ()=>{
@@ -95,6 +97,7 @@ const Login =()=>{
     return(
         <div className="logReg container">
            <Tab panes={panes} />
+           <a id="homeSignIn" className="homeSignIn" href="/">home</a>
         </div>
         )
 }

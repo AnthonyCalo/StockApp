@@ -54,7 +54,7 @@ const App = ()=>{
 
     const getLongData = async()=>{
         //100d graph info
-        const response = await alphavantage2.get('',{
+        const response = await alphavantage.get('',{
             params: {
                 function: "TIME_SERIES_DAILY",
                 symbol:selectedStock.symbol
@@ -79,7 +79,7 @@ const App = ()=>{
 
     const getStockInfo=async()=>{
         //basic info for stockList / stockItem component
-        const response= await alphavantage.get(``,{
+        const response= await alphavantage2.get(``,{
             params: {
                 function: 'OVERVIEW',
                 symbol: selectedStock.symbol
@@ -220,7 +220,6 @@ const App = ()=>{
     }
     const addDark = ()=>{
         const body = document.body;
-        console.log(body, "body");
         if(body.classList.contains("dark")){
             setIconName("moon")
             body.classList.remove("dark")
