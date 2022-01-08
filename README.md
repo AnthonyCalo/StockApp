@@ -33,6 +33,6 @@ Backend uses node.js and express. The database used for authentication and custo
 
 ![stonks1](https://user-images.githubusercontent.com/63485111/135175237-f4039382-990e-4e1b-b864-08fc53d7fa40.PNG)
 
-<h3>Client</h3>
+<h3>Server</h3>
 
 ![shit2](https://user-images.githubusercontent.com/63485111/135175485-3ec0d32f-61f9-4461-8697-baeb93d182e6.PNG)
